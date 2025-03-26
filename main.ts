@@ -38,11 +38,11 @@ class Person {
 
 function main() {
   const person = new Person();
-  const result = person.create("Rafael", 23);
+  const result = person.create("Rafael", 23).toUpperCase;
   const yearOfAge = person.getYearOfAge(28);
 
   const person2 = {
-    name: "Rafael",
+    name: "Rafael".toUpperCase,
     age: 23,
     create(input: string) {
       const name = input.toUpperCase();
@@ -53,11 +53,33 @@ function main() {
       weight: 80,
       details: {},
     },
+    carrer: {
+        companies: [{
+            name: "GFT-Brasil",
+            position: "Tester",
+            duration: 0.6,
+        },
+        {
+            name: "Itaú-Unibanco",
+            position: "Analista de Sistema",
+            duration: 2,
+        },
+        {
+            name: "Taranto",
+            position: "almoxarifado",
+            duration: 10,
+        },
+        {
+            name: "Field Control",
+            position: "Analista de qualidade",
+            duration: 0.8,
+        },
+    ]
+    }
   };
 
   console.log(person);
-  console.log(person2.create("Rafael"));
+  //console.log(person2.create("Rafael"));
   console.log(person2.info.height);
+  console.log(person2.carrer.companies);
 }
-
-main();
