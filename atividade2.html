@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividade 2</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #mensagem {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bem-vindo!</h1>
+    <p>Lista de Títulos:</p>
+    <input type="text" id="task" placeholder="busque pelo ID" />
+    <button id="btn-add">Buscar Título</button>
+    <div id="tasks"></div>
+    <script>
+      async function fetchTitleById(id) {
+        try {
+          const response = await fetch(`https://pokeapi.co/api/v2/${id}`);
+
+          if (!response.ok) {
+            throw new Error("Erro ao buscar dados");
+          }
+
+          const task = await response.json();
+          return task.title;
+        } catch (error) {
+          console.error(error);
+          return "Erro ao buscar o título.";
+        }
+      }
+
+      const btnAdd = document.getElementById("btn-add");
+
+      btnAdd.addEventListener("click", async () => {
+        const input = document.getElementById("task");
+        const taskId = input.value.trim();
+
+        if (taskId === "") {
+          document.getElementById("tasks").textContent =
+            "Por favor, insira um ID de tarefa válido.";
+          return;
+        }
+        input.value = "";
+        const title = await fetchTitleById(taskId);
+
+        document.getElementById(
+          "tasks"
+        ).innerHTML = `${title}<button> REMOVER</button>`;
+      });
+    </script>
+  </body>
+</html>
+
+<!-- // const task = await response.json();
+      // task.forEach((task) => {
+      //   // console.log(task.title);
+      //   const tasksDiv = document.getElementById("tasks");
+      //   tasksDiv.innerHTML = `${tasksDiv.innerHTML + task.title} <br>`;
+      // });
+      // const tasks = await response.json();
+      // const titles = tasks.map((task) => task.title).join("<br>");
+      // const tasksDiv = document.getElementById("tasks");
+      // tasksDiv.innerHTML = titles;
+
+      // let task = await response.json();
+      // console.log(task);
+      // for (let i = 0; i < task.length; i++) {
+      //   console.log(task[i].title);
+      //   const tasksDiv = document.getElementById("tasks");
+      //   tasksDiv.innerHTML = `${tasksDiv.innerHTML + task[i].title} <br>`;
+      // }
+
+      // const task = await response.json();
+      // for (const tasks of task) {
+      //   const tasksDiv = document.getElementById("tasks");
+      //   tasksDiv.innerHTML = `${tasksDiv.innerHTML + tasks.title} <br>`;
+      //   console.log(tasks.title);
+      // }
+
+      // const task = await response.json();
+      // const tasksDiv = document.getElementById("tasks");
+      // for (const index in task) {
+      //   tasksDiv.innerHTML = `${
+      //     tasksDiv.innerHTML + task[index].title
+      //   } <br>`;
+      // } -->
