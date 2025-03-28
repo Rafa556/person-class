@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokédexJS</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      .pokemon {
+        margin: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 0px;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+      }
+      img {
+        width: 150px;
+        height: auto;
+      }
+      .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.2;
+        background-size: auto;
+        z-index: -1;
+      }
+      #mensagem {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pokédex</h1>
+    <input type="number" id="pokemonId" placeholder="Digite o ID do Pokémon" />
+    <button id="btn-buscar">Buscar Pokémon</button>
+    <div id="resultado"></div>
+
+    <script>
+      async function fetchPokemonById(id) {
+        try {
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${id}`
+          );
+          if (!response.ok) {
+            throw new Error("Pokemon não encontrado");
+          }
+          const pokemon = await response.json();
+          return pokemon;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      }
+      function showFront(pokemon) {
+        const pokemonDiv = document.getElementById(pokemon.id);
+        const imgShiny = pokemonDiv.querySelector(".img-shiny");
+        const imgDefault = pokemonDiv.querySelector(".img-default");
+
+        imgShiny.src = pokemon.sprites.front_shiny;
+        imgDefault.src = pokemon.sprites.front_default;
+      }
+
+      function showBack(pokemon) {
+        const pokemonDiv = document.getElementById(pokemon.id);
+        const imgShiny = pokemonDiv.querySelector(".img-shiny");
+        const imgDefault = pokemonDiv.querySelector(".img-default");
+
+        imgShiny.src = pokemon.sprites.back_shiny;
+        imgDefault.src = pokemon.sprites.back_default;
+      }
+
+      const btnBuscar = document.getElementById("btn-buscar");
+      btnBuscar.addEventListener("click", async () => {
+        const input = document.getElementById("pokemonId");
+        const pokemonId = input.value.trim();
+        if (
+          pokemonId === "" ||
+          isNaN(pokemonId) ||
+          pokemonId < 1 ||
+          pokemonId > 898
+        ) {
+          document.getElementById("resultado").textContent =
+            "Por favor, insira um ID válido (1 a 898).";
+          return;
+        }
+        input.value = "";
+        const pokemon = await fetchPokemonById(pokemonId);
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.innerHTML = "";
+
+        const existingBackground = document.querySelector(".background");
+        if (existingBackground) existingBackground.remove();
+
+        if (pokemon) {
+          const backgroundDiv = document.createElement("div");
+          backgroundDiv.className = "background";
+          backgroundDiv.style.backgroundImage = `url(${pokemon.sprites.front_default})`;
+
+          const pokemonDiv = document.createElement("div");
+          pokemonDiv.id = pokemon.id;
+          pokemonDiv.className = "pokemon";
+          const pokemonName =
+            pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+          const data = JSON.stringify(pokemon);
+
+          pokemonDiv.innerHTML = `
+          <h2>${pokemonName}</h2>
+          <img class="img-default" src="${pokemon.sprites.front_default}">
+          <img class="img-shiny" src="${pokemon.sprites.front_shiny}">
+          <div class="button-container">
+            <button onclick='showFront(${data})'>Virar Frontal</button>
+            <button onclick='showBack(${data})'>Virar Traseiro</button>
+          </div>
+          <p>ID: ${pokemon.id}</p>
+        `;
+
+          const existingBackground = document.querySelector(".background");
+          if (existingBackground) existingBackground.remove();
+
+          resultadoDiv.appendChild(backgroundDiv);
+          resultadoDiv.appendChild(pokemonDiv);
+        } else {
+          resultadoDiv.textContent = "Erro ao carregar Pokémon";
+        }
+      });
+    </script>
+  </body>
+</html>
