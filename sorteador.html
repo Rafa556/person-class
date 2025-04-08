@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      #sortearDiv {
+        font-size: 4rem;
+        font-family: "Roboto Mono", monospace;
+      }
+
+      #btn-sorteador {
+        background-color: cornflowerblue;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+      }
+
+      #btn-sorteador:hover {
+        background-color: rgb(146, 180, 241);
+        transition: 0.3s ease-in-out;
+      }
+      #container {
+        background-color: rgb(253, 227, 178);
+        min-height: 100vh;
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="sortearDiv"></div>
+      <button id="btn-sorteador">Sortear</button>
+    </div>
+    <script>
+      const btnSort = document.getElementById("btn-sorteador");
+
+      btnSort.addEventListener("click", () => {
+        const numero = Math.floor(Math.random() * (100000 - 1) + 1);
+
+        console.log(numero);
+
+        document.getElementById("sortearDiv").innerHTML = `${numero}`;
+      });
+    </script>
+  </body>
+</html>

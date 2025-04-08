@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h2>Projeto Final</h2>
+      <input type="text" id="action" placeholder="O que você fez?" />
+      <button id="btn-add">Clique aqui</button>
+    </div>
+    <div id="resultado"></div>
+    <script>
+      function clickButton() {
+        let contador = 0;
+
+        return function () {
+          contador++;
+          return contador;
+        };
+      }
+
+      const inputAction = document.getElementById("action");
+      const btnAdd = document.getElementById("btn-add");
+      const resultado = document.getElementById("resultado");
+
+      btnAdd.addEventListener("click", () => {
+        const actionAtual = inputAction.value;
+        if (actionAtual) {
+          const countClicks = clickButton();
+          const actionDiv = document.createElement("div");
+          actionDiv.style.marginBottom = "10px";
+          const actionText = document.createElement("span");
+          actionText.textContent = `Você "${actionAtual}" `;
+          const countSpan = document.createElement("span");
+          countSpan.textContent = "0 vezes.";
+          const btnClick = document.createElement("button");
+          btnClick.textContent = "Clique Aqui";
+
+          btnClick.addEventListener("click", () => {
+            const numberClicks = countClicks();
+            countSpan.textContent = `${numberClicks} vezes.`;
+          });
+          actionDiv.appendChild(actionText);
+          actionDiv.appendChild(countSpan);
+          actionDiv.appendChild(btnClick);
+          resultado.appendChild(actionDiv);
+
+          inputAction.value = "";
+        } else {
+          alert("Por favor, insira uma ação.");
+        }
+      });
+    </script>
+  </body>
+</html>
