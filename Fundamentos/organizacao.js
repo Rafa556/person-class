@@ -144,7 +144,7 @@
 
 // Object.defineProperty(pessoa, "dataNascimento", {
 //   enumerable: true,
-//   writable: false,
+// writable: false,
 //   value: "01/01/2021",
 // });
 
@@ -241,3 +241,254 @@
 // };
 
 // console.log([1, 2, 3, 4, 5].first());
+
+// function Aluno(nome, nota) {
+//   Pessoa.call(this, nome);
+//   this.nota = nota;
+// }
+
+// Aluno.prototype = Object.create(Pessoa.prototype);
+// Aluno.prototype.constructor = Aluno;
+// Aluno.prototype.apresentar = function () {
+//   console.log(`Meu nome é ${this.nome} e minha nota é ${this.nota}`);
+// };
+
+// const aluno1 = new Aluno("Carlor", 8);
+// aluno1.apresentar();
+
+// function multiplicador(fator) {
+//   return function (numero) {
+//     return numero * fator;
+//   };
+// }
+// const dobro = multiplicador(2);
+// console.log(dobro(5));
+// console.log(dobro(10));
+
+// function apresentar(nome = "Desconhecido", idade = 18) {
+//   console.log(`Meu nome é ${nome} e eu tenho ${idade} anos.`);
+// }
+// apresentar();
+// apresentar("Ana");
+// apresentar("Pedro", 25);
+
+// class Calculadora {
+//   static somar(a, b) {
+//     return a + b;
+//   }
+//   static subtrair(a, b) {
+//     return a - b;
+//   }
+// }
+// console.log(Calculadora.somar(5, 3));
+// console.log(Calculadora.subtrair(7, 2));
+
+// const contaBancaria = {
+//   saldo: 0,
+//   get saldoAtual() {
+//     return this.saldo;
+//   },
+//   set deposito(valor) {
+//     if (valor > 0) {
+//       this.saldo += valor;
+//     } else {
+//       console.log("Depósito deve ser um número positivo");
+//     }
+//   },
+// };
+
+// contaBancaria.deposito = 100;
+// console.log(contaBancaria.saldoAtual);
+// contaBancaria.deposito -= 50;
+
+// class Avo {
+//   constructor(sobrenome) {
+//     this.sobrenome = sobrenome;
+//   }
+// }
+
+// class Pai extends Avo {
+//   constructor(sobrenome, profissão = "Professor") {
+//     super(sobrenome);
+//     this.profissão = profissão;
+//   }
+// }
+// class Filho extends Pai {
+//   constructor() {
+//     super("Silva");
+//   }
+// }
+
+// const filho = new Filho();
+// console.log(filho);
+
+//ARRAY -----------------------------------------------------------------------------
+
+// const aprovados = ["Agatha", "Aldo", "Daniel", "Raquel"];
+
+// aprovados.forEach(function (nome, indice) {
+//   console.log(`${indice + 1}) ${nome}`);
+// });
+
+// aprovados.forEach((nome) => console.log(nome));
+
+// const exibirAprovados = (aprovado) => console.log(aprovado);
+// aprovados.forEach(exibirAprovados);
+
+// Array.prototype.forEach2 = function (callback) {
+//   for (let i = 0; i < this.length; i++) {
+//     callback(this[i], i, this);
+//   }
+// };
+
+// const aprovados = ["Agatha", "Aldo", "Daniel", "Raquel"];
+
+// aprovados.forEach(function (nome, indice) {
+//   console.log(`${indice + 1}) ${nome}`);
+// });
+
+// const nums = [1, 2, 3, 4, 5];
+
+// let resultado = nums.map(function (e) {
+//   return e * 2;
+// });
+
+// console.log(resultado);
+
+// const soma10 = (e) => e + 10;
+// const triplo = (e) => e * 3;
+// const paraDinheiro = (e) => `R$ ${parseFloat(e).toFixed(2).replace(".", ",")}`;
+// resultado = nums.map(soma10).map(triplo).map(paraDinheiro);
+// console.log(resultado);
+
+// const carrinho = [
+//   '{ "nome": "Borracha", "preco": 3.45}',
+//   '{ "nome": "Caderno", "preco": 13.90}',
+//   '{ "nome": "Kir de Lapis", "preco": 41.22}',
+//   '{ "nome": "Caneta", "preco": 7.50}',
+// ];
+
+// const paraObjeto = (json) => JSON.parse(json);
+// const valorPreco = (produto) => produto.preco;
+
+// const resultado = carrinho.map(paraObjeto).map(valorPreco);
+// console.log(resultado );
+
+// Array.prototype.map2 = function (callback) {
+//   const newArray = [];
+//   for (let i = 0; i < this.length; i++) {
+//     newArray.push(callback(this[i], i, this));
+//   }
+//   return newArray;
+// };
+// const carrinho = [
+//   '{ "nome": "Borracha", "preco": 3.45}',
+//   '{ "nome": "Caderno", "preco": 13.90}',
+//   '{ "nome": "Kir de Lapis", "preco": 41.22}',
+//   '{ "nome": "Caneta", "preco": 7.50}',
+// ];
+
+// const paraObjeto = (json) => JSON.parse(json);
+// const valorPreco = (produto) => produto.preco;
+
+// const resultado = carrinho.map2(paraObjeto).map2(valorPreco);
+// console.log(resultado);
+
+// const produtos = [
+//   { nome: "NoteBook", preco: 2499, fragil: true },
+//   { nome: "iPad Pro", preco: 4199, fragil: true },
+//   { nome: "Copo de Vidro", preco: 12.49, fragil: true },
+//   { nome: "Copo de Plástico", preco: 18.99, fragil: false },
+// ];
+
+// console.log(
+//   produtos.filter(function (p) {
+//     return false;
+//   })
+// );
+
+// const caro = (produto) => produto.preco >= 500;
+// const fragil = (produto) => produto.fragil;
+
+// console.log(produtos.filter(caro).filter(fragil));
+
+// Array.prototype.filter2 = function (callback) {
+//   const newArray = [];
+//   for (let i = 0; i < this.length; i++) {
+//     if (callback(this[i], i, this)) {
+//       newArray.push(this[i]);
+//     }
+//   }
+// };
+// const produtos = [
+//   { nome: "NoteBook", preco: 2499, fragil: true },
+//   { nome: "iPad Pro", preco: 4199, fragil: true },
+//   { nome: "Copo de Vidro", preco: 12.49, fragil: true },
+//   { nome: "Copo de Plástico", preco: 18.99, fragil: false },
+// ];
+
+// const caro = (produto) => produto.preco >= 500;
+// const fragil = (produto) => produto.fragil;
+
+// console.log(produtos.filter(caro).filter(fragil));
+
+// const alunos = [
+//   { nome: "João", nota: 7.3, bolsista: false },
+//   { nome: "Maria", nota: 9.2, bolsista: true },
+//   { nome: "Pedro", nota: 9.8, bolsista: false },
+//   { nome: "Ana", nota: 8.7, bolsista: true },
+// ];
+
+// console.log(alunos.map((a) => a.nota));
+// const resultado = alunos
+//   .map((a) => a.nota)
+//   .reduce(function (acc, atual) {
+//     console.log(acc, atual);
+//     return acc + atual;
+//   }, 0);
+
+// console.log(resultado);
+
+// const alunos = [
+//   { nome: "João", nota: 7.3, bolsista: false },
+//   { nome: "Maria", nota: 9.2, bolsista: true },
+//   { nome: "Pedro", nota: 9.8, bolsista: false },
+//   { nome: "Ana", nota: 8.7, bolsista: true },
+// ];
+
+// const todosBolsistas = (resultado, bolsista) => resultado && bolsista;
+// console.log(alunos.map((a) => a.bolsista).reduce(todosBolsistas));
+
+// const algumBolsita = (resultado, bolsista) => resultado || bolsista;
+// console.log(alunos.map((a) => a.bolsista).reduce(algumBolsita));
+
+// Array.prototype.reduce2 = function (callback) {
+//   let acc = this[0];
+//   for (let i = 1; i < this.length; i++) {
+//     acc = callback(acc, this[i], i, this);
+//   }
+//   return acc;
+// };
+
+// const soma = (total, valor) => total + valor;
+// const nums = [1, 2, 3, 4, 5, 6];
+// console.log(nums.reduce2(soma));
+
+const alunos = [
+  { nome: "Joao", nota: 7.9 },
+  { nome: "Maria", nota: 9.2 },
+];
+
+//Imperativo
+let total1 = 0;
+for (let i = 0; i < alunos.length; i++) {
+  total1 += alunos[i].nota;
+}
+console.log(total1 / alunos.length);
+
+//Declarativo
+const getNota = (aluno) => aluno.nota;
+const soma = (total, atual) => total + atual;
+
+const total2 = alunos.map(getNota).reduce(soma);
+console.log(total2 / alunos.length);
