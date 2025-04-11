@@ -71,15 +71,6 @@
 // const p1 = new Pessoa("João");
 // p1.falar();
 
-// const criarPessoa = (nome) => {
-//   return {
-//     falar: () => console.log(`Meu nome é ${nome}`),
-//   };
-// };
-
-// const p2 = criarPessoa("João");
-// p2.falar();
-
 //OBJETOS ------------------------------------------------------------------
 
 // const pessoa = {
@@ -234,7 +225,7 @@
 //   return this.split("").reverse().join("");
 // };
 
-// console.log("Ecola Cod3r".reverse());
+// console.log("Escola Cod3r".reverse());
 
 // Array.prototype.first = function () {
 //   return this[0];
